@@ -17,3 +17,7 @@ void loadTasks();
 void saveTasks();
 void view();
 void markComplete();
+
+int main()
+{
+}
