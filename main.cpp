@@ -44,7 +44,7 @@ void loadTasks()
         string line;
         while (getline(taskfile, line))
         {
-            size_t position = line.find("|");
+            int position = line.find("|");
             if (position != string::npos)
             {
                 Tasks[tasksCount] = line.substr(0, position);
