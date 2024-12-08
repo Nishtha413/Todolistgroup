@@ -19,74 +19,21 @@ void loadTasks()
     {
         cout << "No saved tasks found. Starting fresh." << endl;
         return;
-        tasksCount = 0;
-        string line;
-        while (getline(taskfile, line))
+    }
+    tasksCount = 0;
+    string line;
+    while (getline(taskfile, line))
+    {
+        int position = line.find("|");
+        if (position != string::npos)
         {
-            int position = line.find("|");
-            if (position != string::npos)
-            {
-                Tasks[tasksCount] = line.substr(0, position);
-                Condition[tasksCount] = (line.substr(position + 1) == "1");
-                tasksCount++;
-            }
+            Tasks[tasksCount] = line.substr(0, position);
+            Condition[tasksCount] = (line.substr(position + 1) == "1");
+            tasksCount++;
         }
     }
     taskfile.close();
 }
-void view()
-{
-    if (tasksCount == 0)
-    {
-        cout << "No tasks available." << endl;
-        return;
-    }
-    cout << "Your Tasks:" << endl;
-    for (int i = 0; i < tasksCount; i++)
-    {
-        cout << i + 1 << ". [" << (Condition[i] ? "X" : " ") << "] " << Tasks[i] << endl;
-    }
-}
-void deleteTasks()
-{
-    view();
-    if (tasksCount == 0)
-        return;
-    cout << "Enter the task number to delete: ";
-    int taskNumber;
-    cin >> taskNumber;
-    if (taskNumber < 1 || taskNumber > tasksCount)
-    {
-        cout << "Invalid task number!" << endl;
-    }
-    for (int i = taskNumber - 1; i < tasksCount - 1; i++)
-    {
-        Tasks[i] = Tasks[i + 1];
-        Condition[i] = Condition[i + 1];
-    }
-    tasksCount--;
-    cout << "Task deleted successfully!" << endl;
-};
-
-void markComplete()
-{
-    view();
-    if (tasksCount == 0)
-        return;
-    cout << "Enter the task number to mark as completed: ";
-    int taskNumber;
-    cin >> taskNumber;
-    if (taskNumber < 1 || taskNumber > tasksCount)
-    {
-        cout << "Invalid task number!" << endl;
-    }
-    else
-    {
-        Condition[taskNumber - 1] = true;
-        cout << "Task marked as completed!" << endl;
-    }
-};
-
 void saveTasks()
 {
 
@@ -115,6 +62,58 @@ void addTask()
     tasksCount++;
     cout << "Task added successfully!" << endl;
 }
+void view()
+{
+    if (tasksCount == 0)
+    {
+        cout << "No tasks available." << endl;
+        return;
+    }
+    cout << "Your Tasks:" << endl;
+    for (int i = 0; i < tasksCount; i++)
+    {
+        cout << i + 1 << ". [" << (Condition[i] ? "X" : " ") << "] " << Tasks[i] << endl;
+    }
+}
+
+void markComplete()
+{
+    view();
+    if (tasksCount == 0)
+        return;
+    cout << "Enter the task number to mark as completed: ";
+    int taskNumber;
+    cin >> taskNumber;
+    if (taskNumber < 1 || taskNumber > tasksCount)
+    {
+        cout << "Invalid task number!" << endl;
+    }
+    else
+    {
+        Condition[taskNumber - 1] = true;
+        cout << "Task marked as completed!" << endl;
+    }
+}
+void deleteTasks()
+{
+    view();
+    if (tasksCount == 0)
+        return;
+    cout << "Enter the task number to delete: ";
+    int taskNumber;
+    cin >> taskNumber;
+    if (taskNumber < 1 || taskNumber > tasksCount)
+    {
+        cout << "Invalid task number!" << endl;
+    }
+    for (int i = taskNumber - 1; i < tasksCount - 1; i++)
+    {
+        Tasks[i] = Tasks[i + 1];
+        Condition[i] = Condition[i + 1];
+    }
+    tasksCount--;
+    cout << "Task deleted successfully!" << endl;
+};
 
 int main()
 {
@@ -153,7 +152,7 @@ int main()
         default:
             cout << "Invalid choice! Please try again." << endl;
         }
-    } while (choice >= 1 && choice <= 5);
+    } while (choice != 5);
 
     return 0;
 }
