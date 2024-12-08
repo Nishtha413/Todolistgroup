@@ -37,6 +37,8 @@ void viewTasks()
         cout << i + 1 << ". [" << (isCompleted[i] ? "X" : " ") << "] " << tasks[i] << endl;
     }
 }
-
+int main()
+{
+}
 
   
