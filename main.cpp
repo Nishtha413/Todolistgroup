@@ -32,6 +32,29 @@ void saveTasks()
         taskfile.close();
     }
 }
+
+void loadTasks()
+{
+    taskfile.open(File_Name, ios::in);
+    if (!taskfile)
+    {
+        cout << "No saved tasks found. Starting fresh." << endl;
+        return;
+        tasksCount = 0;
+        string line;
+        while (getline(taskfile, line))
+        {
+            size_t position = line.find("|");
+            if (position != string::npos)
+            {
+                Tasks[tasksCount] = line.substr(0, position);
+                Condition[tasksCount] = (line.substr(position + 1) == "1");
+                tasksCount++;
+            }
+        }
+    }
+    taskfile.close();
+}
 int main()
 {
 }
