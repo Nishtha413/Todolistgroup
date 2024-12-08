@@ -20,9 +20,9 @@ void addTask()
     }
     cout << "Enter the task description: ";
     cin.ignore(); 
-    getline(cin, tasks[taskCount]);
-    isCompleted[taskCount] = false; 
-    taskCount++;
+    getline(cin, tasks[tasksCount]);
+    isCompleted[tasksCount] = false; 
+    tasksCount++;
     cout << "Task added successfully!" << endl;
 }
 void deleteTasks();
@@ -31,15 +31,15 @@ void saveTasks();
 
 void viewTasks()
 {
-    if (taskCount == 0)
+    if (taskCounts == 0)
     {
         cout << "No tasks available." << endl;
         return;
     }
     cout << "Your Tasks:" << endl;
-    for (int i = 0; i < taskCount; i++)
+    for (int i = 0; i < taskCounts; i++)
     {
-        cout << i + 1 << ". [" << (isCompleted[i] ? "X" : " ") << "] " << tasks[i] << endl;
+        cout << i + 1 << ". [" << (Condition[i] ? "X" : " ") << "] " << Tasks[i] << endl;
     }
 }
 void markComplete();
