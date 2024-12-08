@@ -47,10 +47,12 @@ void markComplete()
     if (taskNumber < 1 || taskNumber > tasksCount)
     {
         cout << "Invalid task number!" << endl;
-        return;
     }
-    Condition[taskNumber - 1] = true;
-    cout << "Task marked as completed!" << endl;
+    else
+    {
+        Condition[taskNumber - 1] = true;
+        cout << "Task marked as completed!" << endl;
+    }
 };
 
 int main()
