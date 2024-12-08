@@ -12,6 +12,41 @@ int tasksCount = 0;
 const string File_Name = "tasks.txt";
 fstream taskfile;
 
+void loadTasks()
+{
+    taskfile.open(File_Name, ios::in);
+    if (!taskfile)
+    {
+        cout << "No saved tasks found. Starting fresh." << endl;
+        return;
+        tasksCount = 0;
+        string line;
+        while (getline(taskfile, line))
+        {
+            int position = line.find("|");
+            if (position != string::npos)
+            {
+                Tasks[tasksCount] = line.substr(0, position);
+                Condition[tasksCount] = (line.substr(position + 1) == "1");
+                tasksCount++;
+            }
+        }
+    }
+    taskfile.close();
+}
+void view()
+{
+    if (tasksCount == 0)
+    {
+        cout << "No tasks available." << endl;
+        return;
+    }
+    cout << "Your Tasks:" << endl;
+    for (int i = 0; i < tasksCount; i++)
+    {
+        cout << i + 1 << ". [" << (Condition[i] ? "X" : " ") << "] " << Tasks[i] << endl;
+    }
+}
 void deleteTasks()
 {
     view();
@@ -64,28 +99,21 @@ void saveTasks()
     }
 }
 
-void loadTasks()
+void addTask()
 {
-    taskfile.open(File_Name, ios::in);
-    if (!taskfile)
+    if (tasksCount >= maxtasks)
     {
-        cout << "No saved tasks found. Starting fresh." << endl;
+        cout << "Task list is full!" << endl;
         return;
-        tasksCount = 0;
-        string line;
-        while (getline(taskfile, line))
-        {
-            int position = line.find("|");
-            if (position != string::npos)
-            {
-                Tasks[tasksCount] = line.substr(0, position);
-                Condition[tasksCount] = (line.substr(position + 1) == "1");
-                tasksCount++;
-            }
-        }
     }
-    taskfile.close();
+    cout << "Enter the task description: ";
+    cin.ignore();
+    getline(cin, Tasks[tasksCount]);
+    Condition[tasksCount] = false;
+    tasksCount++;
+    cout << "Task added successfully!" << endl;
 }
+
 int main()
 {
     loadTasks(); // load previous tasks
@@ -106,7 +134,7 @@ int main()
         switch (choice)
         {
         case 1:
-            addTasks();
+            addTask();
             break;
         case 2:
             view();
