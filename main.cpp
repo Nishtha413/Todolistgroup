@@ -1,13 +1,15 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 
-const int MAX_TASKS = 100;
+const int maxtasks = 100;
 
-string tasks[MAX_TASKS];
-bool isCompleted[MAX_TASKS];
-int taskCount = 0;
+string Tasks[maxtasks];
+bool Condition[maxtasks];
+int tasksCount = 0;
 
+const string File_Name = "tasks.txt";
 
 void addTask()
 {
@@ -23,6 +25,9 @@ void addTask()
     taskCount++;
     cout << "Task added successfully!" << endl;
 }
+void deleteTasks();
+void loadTasks();
+void saveTasks();
 
 void viewTasks()
 {
@@ -37,8 +42,9 @@ void viewTasks()
         cout << i + 1 << ". [" << (isCompleted[i] ? "X" : " ") << "] " << tasks[i] << endl;
     }
 }
+void markComplete();
+
 int main()
 {
 }
-
   
