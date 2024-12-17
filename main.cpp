@@ -37,7 +37,7 @@ void loadTasks()
 void saveTasks()
 {
 
-    taskfile.open(File_Name, ios ::app);
+    taskfile.open(File_Name, ios ::out);
     if (taskfile.is_open())
     {
         for (int i = 0; i < tasksCount; i++)
@@ -117,10 +117,10 @@ void deleteTasks()
 
 int main()
 {
-    loadTasks(); // load previous tasks
+    loadTasks(); // load previous tasks from the file
 
     int choice;
-    do
+    do // while loop is used to display a menu of option
     {
         cout << "\n======= To-Do list Menu=======" << endl;
         cout << "1. Add a New task" << endl;
@@ -153,6 +153,7 @@ int main()
             cout << "Invalid choice! Please try again." << endl;
         }
     } while (choice != 5);
+    cout << "Exiting...." << endl;
 
     return 0;
 }
